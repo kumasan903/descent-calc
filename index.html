@@ -1,1 +1,65 @@
-<html></html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="robots" content="noindex">
+        <title>Descent Calculation v.1.0.1</title>
+    </head>
+    <body>
+        <form class="descent_calc">
+            <dl>
+                <p>降下に必要な距離：<span id="span1"></span></p>
+                <p>高度差：<span id="span2"></span></p>
+                <dt>降下開始高度(FL)：</dt>
+                <dd><input type="number" id="cra" value="380" class="box"></dd>
+                <dt>降下目標高度(FL)：</dt>
+                <dd><input type="number" id="toa" value="150" class="box"></dd>
+                <dt>降下パス(°)：</dt>
+                <dd><input type="number" id="pas" value="3" class="box"></dd>
+                <p><input type="button" value="計算" onclick="clickBtn3()" class="calc-btn"></p>
+            </dl>
+        </form>
+
+        <script>
+            function clickBtn3() {
+                const cra = document.getElementById("cra") //現在高度
+                const toa = document.getElementById("toa") //降下目標高度
+                const pas = document.getElementById('pas') //降下パス
+                document.getElementById("span1").textContent = Math.round(((Number(Number(cra.value)*100-Number(toa.value)*100) / Math.tan(Number(pas.value)*(Math.PI / 180))))/6076) + " nm"; //結果を表示(必要距離)
+                document.getElementById("span2").textContent = (Number(cra.value)-Number(toa.value))*100 + " ft"; //結果を表示(高度差)
+            }
+        </script>
+
+        <style>
+            .descent_calc {
+                background: #eaf4ff;
+                padding: 10px 30px;
+            }
+
+            form dl dt {
+                width: 200px;
+                height: 40px;
+                padding: 10px 0;
+                line-height: 40px;
+                float: left;
+            }
+
+            form dl dd {
+                padding: 10px 0;
+                margin: 0;
+            }
+
+            .box {
+                box-sizing: border-box;
+                width: 150px !important;
+                height: 40px !important;
+                margin: 0 !important;
+                padding: 0 10px !important;
+            }
+
+            .calc-btn:hover {
+                cursor: pointer;
+            }
+        </style>
+
+    </body>
+</html>
